@@ -58,7 +58,7 @@ python3 mcp_server.py stdio
 
 ### 3. Configure Claude MCP
 
-Add this snippet to your Claude or VS code configuration:
+Add this snippet to your Claude or VS code configuration(For MAC only. Check official documentation for Windows):
 
 - For Claude(`~/Library/Application\ Support/Claude/claude_desktop_config.json`)
 
