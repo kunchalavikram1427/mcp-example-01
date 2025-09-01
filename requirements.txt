@@ -1,0 +1,4 @@
+flask
+fastmcp
+httpx
+python-dotenv
