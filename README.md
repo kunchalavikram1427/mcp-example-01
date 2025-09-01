@@ -104,7 +104,7 @@ Add this snippet to your Claude or VS code configuration(For MAC only. Check off
 
 ## Example Prompts
 
-Try these inside Claude after connecting the MCP server:
+Try these inside Claude/VS Code after connecting the MCP server:
 
 * *Explain `prj_002`*
 * *Explain `Who is Maria`* / *Summarize Maria*
