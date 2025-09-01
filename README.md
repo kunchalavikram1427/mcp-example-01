@@ -4,7 +4,7 @@ This project demonstrates how to connect a simple **Flask REST API** with a **Fa
 
 ---
 
-## 📂 Files
+## Files
 
 * **`sample_app_flask.py`** — A Flask REST API serving dummy org/employee/project data
 * **`mcp_server.py`** — A FastMCP server that:
@@ -15,15 +15,15 @@ This project demonstrates how to connect a simple **Flask REST API** with a **Fa
 
 ---
 
-## ✅ Prerequisites
+## Prerequisites
 
-* Python **3.11+**
+* Python **3+**
 * `curl` (optional, for quick testing)
 * (Recommended) `jq` for JSON pretty-printing
 
 ---
 
-## ⚙️ Setup
+## Setup
 
 ```bash
 python3 -m venv venv
@@ -33,7 +33,7 @@ pip3 install -r requirements.txt
 
 ---
 
-## 🚀 Running the Applications
+## Running the Applications
 
 ### 1. Start the Flask Sample App
 
@@ -49,16 +49,12 @@ curl -s http://127.0.0.1:5000/employees | jq
 curl -s "http://127.0.0.1:5000/employees/search?q=dev" | jq
 ```
 
----
-
 ### 2. Start the MCP Server
 
 ```bash
 export SAMPLE_API_BASE=http://127.0.0.1:5000  # optional (default is same)
 python3 mcp_server.py stdio
 ```
-
----
 
 ### 3. Configure Claude MCP
 
@@ -106,7 +102,7 @@ Add this snippet to your Claude or VS code configuration:
 
 ---
 
-## 💬 Example Prompts
+## Example Prompts
 
 Try these inside Claude after connecting the MCP server:
 
