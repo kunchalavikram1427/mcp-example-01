@@ -62,16 +62,38 @@ python3 mcp_server.py stdio
 
 ### 3. Configure Claude MCP
 
-Add this snippet to your Claude configuration (e.g., `claude_desktop_config.json`):
+Add this snippet to your Claude or VS code configuration:
+
+- For Claude(`~/Library/Application\ Support/Claude/claude_desktop_config.json`)
 
 ```json
 {
   "mcpServers": {
     "org_mcp": {
       "type": "stdio",
-      "command": "/Users/Vikram.Kunchala/Library/CloudStorage/GoogleDrive-Vikram.Kunchala@sony.com/My Drive/work/team_infragine_protooling/POCs_and_LetsDemo_Sessions/MCP/venv/bin/python3",
+      "command": "/Users/Vikram.Kunchala/Documents/MCP/venv/bin/python3",
       "args": [
-        "/Users/Vikram.Kunchala/Library/CloudStorage/GoogleDrive-Vikram.Kunchala@sony.com/My Drive/work/team_infragine_protooling/POCs_and_LetsDemo_Sessions/MCP/mcp_server.py",
+        "/Users/Vikram.Kunchala/Documents/MCP/mcp_server.py",
+        "stdio"
+      ],
+      "env": {
+        "SAMPLE_API_BASE": "http://127.0.0.1:5000"
+      }
+    }
+  }
+}
+```
+
+- For VS Code(`~/Library/Application\ Support/Code/User/mcp.json`)
+
+```json
+{
+  "mcpServers": {
+    "org_mcp": {
+      "type": "stdio",
+      "command": "/Users/Vikram.Kunchala/Documents/MCP/venv/bin/python3",
+      "args": [
+        "/Users/Vikram.Kunchala/Documents/MCP/mcp_server.py",
         "stdio"
       ],
       "env": {
@@ -93,3 +115,14 @@ Try these inside Claude after connecting the MCP server:
 * *List all the projects handled by Maria*
 * *List all my employees*
 * *List all my organizations*
+
+## MCP Inspector
+
+```bash
+npx @modelcontextprotocor inspector
+```
+```bash
+/Users/Vikram.Kunchala/Documents/MCP/venv/bin/python3 
+
+/Users/Vikram.Kunchala/Documents/MCP/mcp_server.py stdio
+```
