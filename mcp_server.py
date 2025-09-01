@@ -1,8 +1,8 @@
 """
 MCP server using FastMCP that discovers and calls the Flask sample app.
-Run:  
-  # in a separate shell (Flask app already running at 127.0.0.1:5000)  
-  pip install fastmcp httpx python-dotenv  
+Run:
+  # in a separate shell (Flask app already running at 127.0.0.1:5000)
+  pip install -r requirements.txt
   python mcp_server.py stdio  (attach from an MCP-compatible client like Claude Desktop)
 Env:
   SAMPLE_API_BASE (default: http://127.0.0.1:5000)
@@ -10,8 +10,14 @@ Env:
 Tools exposed:
   list_employees, get_employee, search_employees,
   list_projects, get_project, list_org_units, discover_endpoints
-Resources:
-  employee://<emp_id>, project://<project_id>
+Resources (URI templates exposed via MCP resources.list):
+  employee://{emp_id}
+  employees://all
+  employees-search://{q}
+  project://{project_id}
+  projects://all
+  org://units
+  openapi://spec
 Prompts:
   employee_summary_prompt, project_pitch_prompt
 """
@@ -103,7 +109,7 @@ async def list_org_units() -> dict:
     return await _get_json("/org/units")
 
 # -----------------------------
-# Discovery
+# Discovery tool
 # -----------------------------
 @mcp.tool()
 async def discover_endpoints() -> dict:
@@ -111,16 +117,44 @@ async def discover_endpoints() -> dict:
     return await _get_json("/openapi.json")
 
 # -----------------------------
-# Resources
+# Resources (MCP resources.*)
+# IMPORTANT: Do NOT call @mcp.tool-wrapped functions here, call the HTTP helper instead.
+# The tool decorator returns a Tool object which is not directly callable and causes
+# "'Function Tool' object is not callable" if invoked. Use _get_json(...) below.
 # -----------------------------
 @mcp.resource("employee://{emp_id}")
 async def employee_resource(emp_id: str) -> str:
-    data = await get_employee(emp_id)
+    data = await _get_json(f"/employees/{emp_id}")
+    return json.dumps(data, indent=2)
+
+@mcp.resource("employees://all")
+async def employees_all_resource() -> str:
+    data = await _get_json("/employees")
+    return json.dumps(data, indent=2)
+
+@mcp.resource("employees-search://{q}")
+async def employees_search_resource(q: str) -> str:
+    data = await _get_json("/employees/search", {"q": q})
     return json.dumps(data, indent=2)
 
 @mcp.resource("project://{project_id}")
 async def project_resource(project_id: str) -> str:
-    data = await get_project(project_id)
+    data = await _get_json(f"/projects/{project_id}")
+    return json.dumps(data, indent=2)
+
+@mcp.resource("projects://all")
+async def projects_all_resource() -> str:
+    data = await _get_json("/projects")
+    return json.dumps(data, indent=2)
+
+@mcp.resource("org://units")
+async def org_units_resource() -> str:
+    data = await _get_json("/org/units")
+    return json.dumps(data, indent=2)
+
+@mcp.resource("openapi://spec")
+async def openapi_spec_resource() -> str:
+    data = await _get_json("/openapi.json")
     return json.dumps(data, indent=2)
 
 if __name__ == "__main__":

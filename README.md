@@ -89,6 +89,7 @@ Add this snippet to your Claude configuration (e.g., `claude_desktop_config.json
 Try these inside Claude after connecting the MCP server:
 
 * *Explain `prj_002`*
+* *Explain `Who is Maria`* / *Summarize Maria*
 * *List all the projects handled by Maria*
 * *List all my employees*
 * *List all my organizations*

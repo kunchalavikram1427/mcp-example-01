@@ -1,7 +1,7 @@
 """
 Sample Org REST API using Flask.
-Run:  
-  pip install flask httpx python-dotenv fastmcp  
+Run:
+  pip install -r requirements.txt
   python sample_app_flask.py  (starts at http://127.0.0.1:5000)
 Endpoints: /employees, /employees/<id>, /employees/search?q=, /projects, /projects/<id>, /org/units, /healthz, /openapi.json
 """
