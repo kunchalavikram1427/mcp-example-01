@@ -117,12 +117,42 @@ Try these inside Claude after connecting the MCP server:
 * *List all my organizations*
 
 ## MCP Inspector
-
 ```bash
 npx @modelcontextprotocor inspector
 ```
+Command
 ```bash
 /Users/Vikram.Kunchala/Documents/MCP/venv/bin/python3 
-
+```
+Argument
+```bash
 /Users/Vikram.Kunchala/Documents/MCP/mcp_server.py stdio
 ```
+
+## Common questions
+
+1. `I’ve built an MCP server locally using Python’s fastmcp library. I’ve connected it to both VS Code and Claude Desktop. However, there’s a difference in behavior: Claude Desktop automatically connects to the MCP server without prompting me to start it, but VS Code requires me to manually start the server. Why does this difference exist?`
+
+This difference comes down to how VS Code and Claude Desktop handle MCP server lifecycle management:
+
+**Claude Desktop:**
+- Automatically starts and stops MCP servers based on your configuration
+- Manages the server process lifecycle behind the scenes
+- When you configure an MCP server in Claude Desktop's settings, it will automatically launch the server when needed and terminate it when the session ends
+- This is part of Claude Desktop's integrated MCP experience
+
+**VS Code (with MCP extension):**
+- Typically requires you to manually start the MCP server process
+- The VS Code MCP extension connects to an already-running server rather than managing the server lifecycle itself
+- This gives you more control over when servers start/stop, but requires manual intervention
+- Some VS Code MCP extensions may have auto-start capabilities, but this varies by extension
+
+**Why the difference:**
+1. **Architecture philosophy** - Claude Desktop aims for a more seamless, integrated experience where technical details are abstracted away
+2. **Process management** - Claude Desktop has built-in process management for MCP servers, while VS Code extensions often expect external process management
+3. **User experience** - Claude Desktop prioritizes ease of use, while VS Code tends to give developers more direct control
+
+If you want VS Code to auto-start your FastMCP server, you might be able to:
+- Configure a VS Code task to auto-start the server
+- Use a VS Code extension that supports auto-starting MCP servers
+- Set up a workspace configuration that launches the server automatically
