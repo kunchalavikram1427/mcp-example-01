@@ -1,6 +1,6 @@
-# MCP + Flask Sample (Two-file Demo)
+# MCP Demo
 
-This project demonstrates how to connect a simple **Flask REST API** with a **FastMCP server**, exposing tools, resources, and prompts. It also includes an example Claude MCP client configuration.
+This project demonstrates how to connect a simple **Flask REST API** with a **FastMCP server**, exposing tools, resources, and prompts.
 
 ---
 
