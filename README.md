@@ -114,15 +114,7 @@ Try these inside Claude/VS Code after connecting the MCP server:
 
 ## MCP Inspector
 ```bash
-npx @modelcontextprotocor inspector
-```
-Command
-```bash
-/Users/Vikram.Kunchala/Documents/MCP/venv/bin/python3 
-```
-Argument
-```bash
-/Users/Vikram.Kunchala/Documents/MCP/mcp_server.py stdio
+npx @modelcontextprotocol/inspector /Users/Vikram.Kunchala/Documents/MCP/venv/bin/python3  /Users/Vikram.Kunchala/Documents/MCP/mcp_server.py stdio
 ```
 
 ## Common questions
