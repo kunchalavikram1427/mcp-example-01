@@ -10,16 +10,6 @@ Env:
 Tools exposed:
   list_employees, get_employee, search_employees,
   list_projects, get_project, list_org_units, discover_endpoints
-Resources (URI templates exposed via MCP resources.list):
-  employee://{emp_id}
-  employees://all
-  employees-search://{q}
-  project://{project_id}
-  projects://all
-  org://units
-  openapi://spec
-Prompts:
-  employee_summary_prompt, project_pitch_prompt
 """
 from __future__ import annotations
 import os, json
@@ -37,27 +27,6 @@ API_KEY = os.getenv("SAMPLE_API_KEY", "")
 HEADERS: dict[str, str] = {"Accept": "application/json"}
 if API_KEY:
     HEADERS["x-api-key"] = API_KEY
-
-# -----------------------------
-# Prompts
-# -----------------------------
-@mcp.prompt()
-def employee_summary_prompt(name: str, title: str, skills: list[str]):
-    """Summarize an employee in 3 bullets for onboarding context."""
-    skills_str = ", ".join(skills)
-    return (
-        f"Create a concise 3-bullet summary for {name} ({title}). "
-        f"Focus on strengths, recent impact, and collaboration angles based on skills: {skills_str}."
-    )
-
-@mcp.prompt()
-def project_pitch_prompt(project_name: str, description: str, tags: list[str]):
-    """Craft a 60-second executive pitch for a project."""
-    tags_str = ", ".join(tags)
-    return (
-        f"Write a 60-second executive pitch for '{project_name}'. "
-        f"Description: {description}. Tags: {tags_str}. Emphasize outcomes and KPIs."
-    )
 
 # -----------------------------
 # HTTP helper
@@ -116,46 +85,6 @@ async def discover_endpoints() -> dict:
     """Return the OpenAPI document from the sample app for client-side inspection."""
     return await _get_json("/openapi.json")
 
-# -----------------------------
-# Resources (MCP resources.*)
-# IMPORTANT: Do NOT call @mcp.tool-wrapped functions here, call the HTTP helper instead.
-# The tool decorator returns a Tool object which is not directly callable and causes
-# "'Function Tool' object is not callable" if invoked. Use _get_json(...) below.
-# -----------------------------
-@mcp.resource("employee://{emp_id}")
-async def employee_resource(emp_id: str) -> str:
-    data = await _get_json(f"/employees/{emp_id}")
-    return json.dumps(data, indent=2)
-
-@mcp.resource("employees://all")
-async def employees_all_resource() -> str:
-    data = await _get_json("/employees")
-    return json.dumps(data, indent=2)
-
-@mcp.resource("employees-search://{q}")
-async def employees_search_resource(q: str) -> str:
-    data = await _get_json("/employees/search", {"q": q})
-    return json.dumps(data, indent=2)
-
-@mcp.resource("project://{project_id}")
-async def project_resource(project_id: str) -> str:
-    data = await _get_json(f"/projects/{project_id}")
-    return json.dumps(data, indent=2)
-
-@mcp.resource("projects://all")
-async def projects_all_resource() -> str:
-    data = await _get_json("/projects")
-    return json.dumps(data, indent=2)
-
-@mcp.resource("org://units")
-async def org_units_resource() -> str:
-    data = await _get_json("/org/units")
-    return json.dumps(data, indent=2)
-
-@mcp.resource("openapi://spec")
-async def openapi_spec_resource() -> str:
-    data = await _get_json("/openapi.json")
-    return json.dumps(data, indent=2)
 
 if __name__ == "__main__":
     # Run with stdio transport; attach from an MCP-aware client

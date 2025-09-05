@@ -104,13 +104,25 @@ Add this snippet to your Claude or VS code configuration(For MAC only. Check off
 
 ## Example Prompts
 
-Try these inside Claude/VS Code after connecting the MCP server:
+For Sample app
 
-* *Explain `prj_002`*
-* *Explain `Who is Maria`* / *Summarize Maria*
-* *List all the projects handled by Maria*
-* *List all my employees*
-* *List all my organizations*
+- Explain prj_002
+- Who is Maria
+- Summarize Maria
+- List all the projects handled by Maria
+- Find employees who know Kubernetes
+- List all my employees
+- List all my organizations
+- Generate an onboarding summary for Asha Rao
+
+For Filesystem
+- List all my downloaded files
+
+For GH MCP Server
+- List all my GH repos
+- Create a new GH repo called test-mcp-claude and give me instructions to pull the repo locally
+
+
 
 ## MCP Inspector
 ```bash
